@@ -11,4 +11,4 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: npm install && jest
+      - run: npm install -g jest && jest
