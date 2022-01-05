@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import { useCollection } from "react-firebase-hooks/firestore";
 import { useState } from 'react';
 import db from './config/firebase';
 
