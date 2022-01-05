@@ -7,4 +7,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: jest
+      run: npm install -g jest
+      run: jest
+
