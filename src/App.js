@@ -1,25 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import { useCollection } from "react-firebase-hooks/firestore";
 
 function App() {
+
+
+  const [valueRating] = useCollection(
+    db
+      .collection("rate"),
+    {
+      snapshotListenOptions: { includeMetadataChanges: True },
+    });
+     const rateIndicators = valueRating?.docs.map((d) => d.data())[0];
+  function incValue(e) {
+   e.preventDefault();
+   console.log('Le lien a été cliqué.');
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src={logo} className="App-logo" alt="logo"/>
+        Rate my work (Be cool please !👻)
+        <button onClick={incValue}>
+          {rateIndicators} / {rateIndicators} ! Merci 🥰
+        </button>
+
       </header>
     </div>
   );
-}
+  }
+
 
 export default App;
