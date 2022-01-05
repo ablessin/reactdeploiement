@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import app from "firebase/compat/app";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 function App() {
-
+  const db = app.firestore();
 
   const [valueRating] = useCollection(
     db
       .collection("rate"),
     {
-      snapshotListenOptions: { includeMetadataChanges: True },
+      snapshotListenOptions: { includeMetadataChanges: true },
     });
      const rateIndicators = valueRating?.docs.map((d) => d.data())[0];
   function incValue(e) {
