@@ -2,9 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import app from "firebase/compat/app";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useState } from 'react';
 
 function App() {
-  const db = app.firestore();
+ /* const db = app.firestore();
 
   const [valueRating] = useCollection(
     db
@@ -16,14 +17,17 @@ function App() {
   function incValue(e) {
    e.preventDefault();
    console.log('Le lien a été cliqué.');
-  }
+  }*/
+
+ const [value, setValue] = useState(0)
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
         Rate my work (Be cool please !👻)
-        <button onClick={incValue}>
-          {rateIndicators} / {rateIndicators} ! Merci 🥰
+        <button onClick={() => setValue(value+1)}>
+          {value} / {value} ! Merci 🥰
         </button>
 
       </header>
