@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import app from "firebase/app";
+import app from "firebase/compat/app";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 function App() {
