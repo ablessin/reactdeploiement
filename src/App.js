@@ -1,44 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from 'react';
-import db from './config/firebase';
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import "./App.css";
+import db from "./config/firebase";
+import logo from "./logo.svg";
 
 function App() {
+  const [value, loading] = useCollectionData(db.collection("rate"), {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
 
-  console.log(db)
-
-  // const [valueRating] = useCollection(
-  //   db
-  //     .collection("rate"),
-  //   {
-  //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   });
-
-  //   console.log(valueRating)
-   /*  const rateIndicators = valueRating?.docs.map((d) => d.data())[0];
-  function incValue(e) {
-   e.preventDefault();
-   console.log('Le lien a été cliqué.');
-  }*/
-
-  
-
-
- const [value, setValue] = useState(0)
+  const plusOne = () => {
+    db.collection("rate")
+      .limit(1)
+      .get()
+      .then((query) => {
+        db.collection("rate")
+          .doc(query.docs[0].id)
+          .set({
+            value: Number(value[0].value + 1),
+          });
+      });
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
-        Rate my work (Be cool please !👻)
-        <button onClick={() => setValue(value+1)}>
-          {value} / {value} ! Merci 🥰
-        </button>
-
+        {loading && <p>Chargement ...</p>}
+        {!loading && (
+          <>
+            <img src={logo} className="App-logo" alt="logo" />
+            Rate my work (Be cool please !👻)
+            <button className="button" onClick={plusOne}>
+              {value?.[0].value} / {value?.[0].value} ! Merci 🥰
+            </button>
+          </>
+        )}
       </header>
     </div>
   );
-  }
-
+}
 
 export default App;
